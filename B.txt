@@ -1,0 +1,70 @@
+# include"stdio.h"
+# include"malloc.h"
+typedef struct list{
+	int data;
+	struct list *next;}
+LIST;
+void InitList(LIST **p)
+{
+	*p=NULL;
+}
+int DeleteList(LIST **p,int item)
+{
+	LIST *q,*r;
+	q=*p;r=q;
+	if(q==NULL)
+	{
+		return 1;
+	}
+	if(q->data==item)
+	{
+		*p=q->next;
+		free(r);
+		return 0;
+	}
+	for(;q->data!=item&&q->next!=NULL;r=q,q=q->next)
+	;
+	if(q->data==item){
+		r->next=q->next;
+		free(q);
+		return 0;
+	} return 1;
+}
+void OutputList(LIST *p){
+	while(p!=NULL){
+		printf("%4d",p->data);
+			p=p->next;
+	}
+}
+void main()
+{
+	LIST *p;
+	int op,i,rc;
+	InitList(&p);
+	while(1)
+	{
+		printf("请选择操作 1:删除节点 2:输出接点 0:退出\n");
+		fflush(stdin);
+		scanf("%d",&op);
+		switch(op){
+		case 0:
+			return;
+		case 1:
+			printf("请输入要删除节点的值:\n");
+			scanf("%d",&i);
+			rc=DeleteList(&p,i);
+			if(rc==0)
+		printf("删除成功\n");
+			else
+				printf("没有找到\n");
+			break;
+		case 2:
+			printf("\n 链表内容为:\n");
+			OutputList(p);
+			break;
+			}}}
+
+
+
+
+
